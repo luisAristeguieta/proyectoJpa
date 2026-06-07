@@ -17,7 +17,7 @@ import com.krakedev.proyectos.entidades.Proyecto;
 import com.krakedev.proyectos.services.ProyectoService;
 
 @RestController
-@RequestMapping("/api/proyectos")
+@RequestMapping("/proyectos")
 public class ProyectoController {
 
     private final ProyectoService servicio;

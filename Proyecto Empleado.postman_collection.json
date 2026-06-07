@@ -1,0 +1,114 @@
+{
+  "info": {
+    "_postman_id": "f68872d0-748c-473f-b61a-efd92d06c94a",
+    "name": "Proyecto Empleado",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "50753649",
+    "_collection_link": "https://go.postman.co/collection/50753649-f68872d0-748c-473f-b61a-efd92d06c94a?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Crear Empleado",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"nombre\": \"Diana Rojas\",\r\n    \"cargo\": \"Desarrollador Senior\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/empleados",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "empleados"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Crea Proyecto",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"nombre\": \"E-Commerce Plataforma\",\r\n    \"descripcion\": \"Desarrollo del nuevo portal de ventas online\",\r\n    \"fechaInicio\": \"2026-05-20\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/proyectos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "proyectos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Crear Tarea",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"descripcion\": \"Diseñar e implementar el modelo de datos para la base de datos\",\r\n    \"fechaLimite\": \"2026-06-15\",\r\n    \"costoEstimado\": 450.50,\r\n    \"proyecto\": {\r\n        \"id\": 1\r\n    },\r\n    \"empleados\": [\r\n        {\r\n            \"id\": 1\r\n        }\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/tareas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "tareas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/tareas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "tareas"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
