@@ -4,6 +4,9 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -64,6 +67,18 @@ public class AuthController {
 		} else {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Token no proporcionado");
 		}
+	}
+
+	@GetMapping("/perfil")
+	public ResponseEntity<?> verPerfil() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		String usuario = auth.getName();
+		String rol = auth.getAuthorities().iterator().next().getAuthority();
+		String rolMostrar = rol.replace("ROLE_", "");
+
+		return ResponseEntity.ok(Map.of("Mensaje", "Bienvenido al sistema protegido por Spring Security", "Usuario",
+				usuario, "rol_detectado", rolMostrar, "status", "Autenticado Exitosamente"));
 	}
 
 }
