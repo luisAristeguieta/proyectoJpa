@@ -79,6 +79,14 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-log4j2</artifactId>
 		</dependency>
+		
+		<!-- BCrypt for password hashing -->
+	<dependency>
+    	<groupId>org.mindrot</groupId>
+    	<artifactId>jbcrypt</artifactId>
+    	<version>0.4</version>
+	</dependency>
+	
 	</dependencies>
 
 	<build>
