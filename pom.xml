@@ -87,6 +87,13 @@
     	<version>0.4</version>
 	</dependency>
 	
+	<!-- JWT - Auth0 for token generation -->
+	<dependency>
+    	<groupId>com.auth0</groupId>
+    	<artifactId>java-jwt</artifactId>
+    	<version>4.4.0</version>
+	</dependency>
+
 	</dependencies>
 
 	<build>
