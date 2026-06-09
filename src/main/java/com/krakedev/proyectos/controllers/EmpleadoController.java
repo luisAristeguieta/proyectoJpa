@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +27,9 @@ public class EmpleadoController {
         this.servicio = servicio;
     }
 
+    // Solo ADMIN puede crear empleados
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> crear(@RequestBody Empleado empleado) {
         try {
             Empleado nuevo = servicio.guardar(empleado);
@@ -38,8 +41,10 @@ public class EmpleadoController {
                     .body("Error al crear empleado");
         }
     }
-
+    
+ // ADMIN y USER pueden listar empleados
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<?> listar() {
         try {
             List<Empleado> empleados = servicio.listar();
@@ -50,7 +55,9 @@ public class EmpleadoController {
         }
     }
 
+ // ADMIN y USER pueden buscar empleado por ID
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
         try {
             Empleado empleado = servicio.buscarPorId(id);
@@ -63,7 +70,9 @@ public class EmpleadoController {
         }
     }
 
+ // ADMIN y USER pueden actualizar empleados
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<?> actualizar(@PathVariable int id, @RequestBody Empleado empleado) {
         try {
             Empleado actualizado = servicio.actualizar(id, empleado);
@@ -79,7 +88,9 @@ public class EmpleadoController {
         }
     }
 
+ // Solo ADMIN puede eliminar empleados
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> eliminar(@PathVariable int id) {
         try {
             servicio.eliminar(id);

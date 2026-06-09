@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +27,9 @@ public class TareaController {
         this.servicio = servicio;
     }
 
+ // Solo ADMIN puede crear tareas
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> crear(@RequestBody Tarea tarea) {
         try {
             Tarea nueva = servicio.guardar(tarea);
@@ -38,8 +41,9 @@ public class TareaController {
                     .body("Error al crear tarea");
         }
     }
-
+    // ADMIN y USER pueden listar tareas
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<?> listar() {
         try {
             List<Tarea> tareas = servicio.listar();
@@ -49,8 +53,10 @@ public class TareaController {
                     .body("Error al listar tareas");
         }
     }
-
+    
+    // ADMIN y USER pueden buscar tarea por ID
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
         try {
             Tarea tarea = servicio.buscarPorId(id);
@@ -63,7 +69,9 @@ public class TareaController {
         }
     }
 
+    // Solo ADMIN puede actualizar tareas
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> actualizar(@PathVariable int id, @RequestBody Tarea tarea) {
         try {
             Tarea actualizada = servicio.actualizar(id, tarea);
@@ -79,7 +87,9 @@ public class TareaController {
         }
     }
 
+    // Solo ADMIN puede eliminar tareas
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> eliminar(@PathVariable int id) {
         try {
             servicio.eliminar(id);

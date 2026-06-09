@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +27,9 @@ public class ProyectoController {
         this.servicio = servicio;
     }
 
+ // Solo ADMIN puede crear proyectos
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> crear(@RequestBody Proyecto proyecto) {
         try {
             Proyecto nuevo = servicio.guardar(proyecto);
@@ -39,7 +42,9 @@ public class ProyectoController {
         }
     }
 
+    // ADMIN y USER pueden listar proyectos
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<?> listar() {
         try {
             List<Proyecto> proyectos = servicio.listar();
@@ -50,7 +55,9 @@ public class ProyectoController {
         }
     }
 
+    // ADMIN y USER pueden buscar proyecto por ID
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
         try {
             Proyecto proyecto = servicio.buscarPorId(id);
@@ -63,7 +70,9 @@ public class ProyectoController {
         }
     }
 
+ // ADMIN y USER pueden actualizar proyectos
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<?> actualizar(@PathVariable int id, @RequestBody Proyecto proyecto) {
         try {
             Proyecto actualizado = servicio.actualizar(id, proyecto);
@@ -79,7 +88,9 @@ public class ProyectoController {
         }
     }
 
+    // Solo ADMIN puede eliminar proyectos
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> eliminar(@PathVariable int id) {
         try {
             servicio.eliminar(id);
